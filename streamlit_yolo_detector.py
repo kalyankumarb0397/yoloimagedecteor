@@ -1,11 +1,27 @@
-import cv2
+# Install required packages if not already installed
+import subprocess
+import sys
+
+def install_package(package):
+    subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+# Install OpenCV and ultralytics
+try:
+    import cv2
+except ImportError:
+    install_package("opencv-python")
+
+try:
+    from ultralytics import YOLO
+except ImportError:
+    install_package("ultralytics")
+
 import numpy as np
 import random
 import streamlit as st
-from ultralytics import YOLO
 
 # opening the file in read mode with specified encoding
-with open(r'D:\Data Science\VS CODE\Open ai\yoloenv\coco.txt', "r", encoding='utf-8') as my_file:
+with open(r'/workspaces/yoloimagedecteor/coco.txt', "r", encoding='utf-8') as my_file:
     data = my_file.read()
 
 # split the text by newline
@@ -19,8 +35,8 @@ for i in range(len(class_list)):
     b = random.randint(0, 255)
     detection_colors.append((b, g, r))
 
-# Load YOLOv11 model
-model = YOLO("D:\Data Science\VS CODE\Open ai\yoloenv\yolo11n.pt", "11n")  # Replace with actual YOLOv11 model path
+# Load YOLO model
+model = YOLO("/workspaces/yoloimagedecteor/yolo11n.pt", "11n")  # Replace with actual YOLO model path
 
 # Video capture parameters
 frame_wid = 640
