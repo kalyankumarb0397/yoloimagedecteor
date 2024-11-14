@@ -1,0 +1,11 @@
+from ultralytics  import YOLO
+import numpy
+
+model = YOLO('yolov8n.pt','v8')
+
+
+
+dectecion_output= model.predict (source = r'D:\Data Science\VS CODE\Open ai\yoloenv\images.jpg', conf=0.25, save= True)
+print(dectecion_output)
+
+print(dectecion_output[0].numpy())
